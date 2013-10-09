@@ -12,6 +12,32 @@ abstract class ValueV[T] extends SignalV[T] {
   /** Returns the current value. */
   def get :T
 
+  /** Maps the output of this value via `f`. When this value is updated, the mapped value will emit
+    * that value as transformed by `f`. A call to `get` on the mapped value will call get on this
+    * value and transform the result via `f` before returning it. The mapped value will retain a
+    * connection to this value for as long as it has connections of its own.
+    */
+  override def map[M] (f :T => M) :ValueV[M] = {
+    val outer = this
+    new ValueV[M]() {
+      override def get = f(outer.get)
+      // connectionAdded and connectionRemoved are only ever called with a lock held on this reactor,
+      // so we're safe in checking and mutating _conn
+      override protected def connectionAdded () {
+        super.connectionAdded()
+        if (_conn == null) _conn = outer.onValue(v => notifyEmit(f(v)))
+      }
+      override protected def connectionRemoved () {
+        super.connectionRemoved()
+        if (!hasConnections && _conn != null) {
+          _conn.close()
+          _conn = null
+        }
+      }
+      protected var _conn :Connection = _
+    }
+  }
+
   /** Connects `slot` to this value with priority 0; it will be invoked when the value changes. Also
     * immediately invokes `slot` with the current value.
     * @return $CONDOC
