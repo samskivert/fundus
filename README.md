@@ -54,3 +54,4 @@ Fundus is released under the BSD License. See the [LICENSE] file for details.
 [PlayN]: https://code.google.com/p/playn/
 [FRP]: http://en.wikipedia.org/wiki/Functional_reactive_programming
 [LICENSE]: https://github.com/samskivert/fundus/blob/master/LICENSE
+[Maven Central]: http://repo2.maven.org/maven2/com/samskivert/fundus/
