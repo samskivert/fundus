@@ -33,38 +33,6 @@ object Impl {
       s"[owner=$owner, prio=$priority, lner=$listener, hasNext=${ next != null }, oneShot=$oneShot]"
   }
 
-  /** Plumbing to implement mapped signals in such a way that they automatically manage a connection
-    * to their underlying signal. When the mapped signal adds its first connection, it establishes
-    * a connection to the underlying signal, and when it removes its last connection it clears its
-    * connection from the underlying signal.
-    */
-  abstract class MappedSignal[T] extends SignalV[T] {
-
-    /** Establishes a connection to our source signal. Called when go from zero to one listeners.
-      * When we go from one to zero listeners, the connection will automatically be cleared.
-      * @return the newly established connection.
-      */
-    protected def connect () :Connection
-
-    // connectionAdded and connectionRemoved are only ever called with a lock held on this reactor,
-    // so we're safe in checking and mutating _conn
-
-    override protected def connectionAdded () {
-      super.connectionAdded()
-      if (_conn == null) _conn = connect()
-    }
-
-    override protected def connectionRemoved () {
-      super.connectionRemoved()
-      if (!hasConnections && _conn != null) {
-        _conn.close()
-        _conn = null
-      }
-    }
-
-    protected var _conn :Connection = _
-  }
-
   abstract class Runs extends Runnable {
     var next :Runs = _
   }

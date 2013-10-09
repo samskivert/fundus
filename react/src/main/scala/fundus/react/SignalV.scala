@@ -24,8 +24,21 @@ class SignalV[T] extends Reactor[T => Unit] {
     */
   def map[M] (f :T => M) :SignalV[M] = {
     val outer = this
-    new MappedSignal[M]() {
-      override def connect () = outer.onValue(v => notifyEmit(f(v)))
+    new SignalV[M]() {
+      // connectionAdded and connectionRemoved are only ever called with a lock held on this reactor,
+      // so we're safe in checking and mutating _conn
+      override protected def connectionAdded () {
+        super.connectionAdded()
+        if (_conn == null) _conn = outer.onValue(v => notifyEmit(f(v)))
+      }
+      override protected def connectionRemoved () {
+        super.connectionRemoved()
+        if (!hasConnections && _conn != null) {
+          _conn.close()
+          _conn = null
+        }
+      }
+      protected var _conn :Connection = _
     }
   }
 
