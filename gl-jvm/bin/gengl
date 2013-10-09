@@ -1,0 +1,22 @@
+#!/bin/sh
+exec scala -savecompiled $0 $@
+!#
+
+import java.io.File
+import scala.io.Source
+
+val curDir = new File(System.getProperty("user.dir"))
+val glFile = new File(curDir, "gl/src/main/scala/fundus/gl/GLES2.scala")
+if (!glFile.exists) {
+  println(s"Can't read $glFile")
+  sys.exit(255)
+}
+
+val Regex = """  def gl(\w+) \((.*)\) :(\w+)""".r
+val in = Source.fromFile(glFile)
+in.getLines foreach { _ match {
+  case Regex(name, argstr, rtype) =>
+    val args = argstr.split(", ").toSeq
+    println(s"  override def gl$name (${args.mkString(", ")}) =\n    gl.gl$name(${args.map(_.takeWhile(_ != ' ')).mkString(", ")})")
+  case line => if (line.contains("def ")) println(s"!!! $line") else println(line)
+}}

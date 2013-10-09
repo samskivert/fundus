@@ -49,6 +49,8 @@
 
   <modules>
     <module>react</module>
+    <module>gl</module>
+    <module>gl-jvm</module>
   </modules>
 
   <dependencies>
@@ -62,6 +64,18 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.scala-tools</groupId>
+        <artifactId>maven-scala-plugin</artifactId>
+        <version>${maven-scala.version}</version>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <goals><goal>compile</goal></goals>
+            <phase>compile</phase>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
