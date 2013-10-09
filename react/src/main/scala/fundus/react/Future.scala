@@ -10,7 +10,7 @@ import scala.util.{Try, Success, Failure}
 
 /** Represents an asynchronous result. Unlike Java or Scala futures, you cannot block on this
   * result. You can [[map]] or [[flatMap]] it, and listen for success or failure via the
-  * [[success]] and [[failure]] signals.
+  * [[Future.success]] and [[Future.failure]] signals.
   */
 class Future[+T] protected (_result :ValueV[Try[T]]) {
 

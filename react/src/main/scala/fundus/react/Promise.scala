@@ -7,7 +7,7 @@ package fundus.react
 
 import scala.util.{Try, Success, Failure}
 
-/** Provides a concrete implementation of [[RFuture]] that can be updated with a success or failure
+/** Provides a concrete implementation of [[Future]] that can be updated with a success or failure
   * result when it becomes available.
   *
   * This implementation also guarantees a useful behavior, which is that all listeners added prior
