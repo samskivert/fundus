@@ -82,6 +82,10 @@ class Reactor[L] {
     }
   }
 
+  protected def clearListeners () {
+    _listeners = null
+  }
+
   /** Called prior to mutating any underlying model allows subclasses to reject mutation. */
   protected def checkMutate () {} // noop
 
@@ -94,6 +98,6 @@ class Reactor[L] {
   // always called while lock is held on this reactor
   private final def isDispatching :Boolean = (_listeners eq DISPATCHING)
 
-  private var _listeners :Cons[L] = _
-  private var _pendingRuns :Runs = _
+  private[this] var _listeners :Cons[L] = _
+  private[this] var _pendingRuns :Runs = _
 }
