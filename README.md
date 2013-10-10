@@ -24,16 +24,17 @@ libraries that can be reused without making use of the greater Fundus framework:
 Built using these components is `fundus.core` which provides a number of different services, some
 of which make use of the above components and some of which make use of one another:
 
-  * `fundus.core.assets` - loading text and binary data, describing paths
-  * `fundus.core.storage` - simple key/value storage, "SQL-lite" storage (on non-HTML5 platforms)
-  * `fundus.core.net` - http, websocket and (on non-HTML5 platforms) raw sockets
-  * `fundus.core.canvas` - 2D drawing into bitmaps, text rendering
-  * `fundus.core.audio` - decoding and playing SFX and music
-  * `fundus.core.input` - keyboard, mouse, and touch input
-  * `fundus.core.system` - logging and other miscellania
+  * `fundus.core.App` - app lifecycle, logging and other miscellania
+  * `fundus.core.Assets` - loading text and binary data, describing paths
+  * `fundus.core.Audio` - decoding and playing SFX and music
+  * `fundus.core.Canvas` - 2D drawing into bitmaps, text rendering
+  * `fundus.core.Input` - keyboard, mouse, and touch input
+  * `fundus.core.Net` - http, websocket and (on non-HTML5 platforms) raw sockets
+  * `fundus.core.Storage` - simple key/value storage, "SQL-lite" storage (on non-HTML5 platforms)
 
 Atop this foundation, a number of additional libraries are provided:
 
+  * `fundus.scene` - a 2D scene graph library
   * `fundus.anim` - an animation and tweening library
   * `fundus.ui` - a user interface toolkit
 
