@@ -13,8 +13,14 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.samskivert.fundus</groupId>
-      <artifactId>fundus-react</artifactId>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-library</artifactId>
+      <version>${scala.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.samskivert</groupId>
+      <artifactId>reactual</artifactId>
       <version>${project.version}</version>
     </dependency>
 
