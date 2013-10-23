@@ -16,8 +16,6 @@ on mobile and desktop platforms.
 Some of Fundus's components are sufficiently simple or fundamental that they've been isolated into
 libraries that can be reused without making use of the greater Fundus framework:
 
-  * `fundus.react` - a library of "reactive" programming primitives (not strictly [FRP], tailored to
-                     supporting UIs in apps)
   * `fundus.geom`  - a library of 2D (and someday 3D) geometry primitives and routines
   * `fundus.gl`    - OpenGL ES 2.0 minimally exposed as a Scala API
 
@@ -53,6 +51,5 @@ Fundus is released under the BSD License. See the [LICENSE] file for details.
 
 [libGDX]: https://github.com/libgdx/libgdx
 [PlayN]: https://code.google.com/p/playn/
-[FRP]: http://en.wikipedia.org/wiki/Functional_reactive_programming
 [LICENSE]: https://github.com/samskivert/fundus/blob/master/LICENSE
 [Maven Central]: http://repo2.maven.org/maven2/com/samskivert/fundus/
